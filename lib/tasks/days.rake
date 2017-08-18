@@ -4,7 +4,7 @@ namespace :next do
   task :day => :environment do
 
     # Loop thru all the goals
-    Goal.all.each do |goal|
+    Goal.find_by(completed: false).each do |goal|
 
       #Set all days where date = yesterday and status = nil to status = false
       Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => nil).update(:status => false)
