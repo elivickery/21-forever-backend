@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem "react_on_rails", "8.0.0"
 
+gem 'whenever'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
