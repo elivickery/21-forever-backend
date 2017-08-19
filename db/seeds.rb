@@ -3,6 +3,7 @@ require 'faker'
 User.destroy_all
 Category.destroy_all
 Goal.destroy_all
+Media_items.destroy_all
 
 # categories seed data
 environment_seed_file = File.join(Rails.root, 'db', 'seeds', "#{Rails.env}.rb")
@@ -36,4 +37,16 @@ categories = Category.all
                 archived: [true, false].sample,
                 category: categories.sample,
                 user: users.sample})
+end
+
+
+path = "../app/assests/gifs"
+categories.each do |category_title|
+category = Category.find_by(title: category_title)
+  (1..5).each do |index|
+      MediaItem.create({
+          url: "#{path}/#{category_title.downcase.gsub(' ', '_')}_#{index}",
+          category_id: category.id
+      })
+  end
 end
