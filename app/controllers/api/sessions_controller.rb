@@ -22,5 +22,14 @@ module Api
         end
     end
 
+
+    #the _url is needed if redirecting for root. - convention/ rails docs say so
+    # root is set in the routes. right now there are no routes set.
+     def destroy
+        log_out if logged_in?
+        redirect_to root_url
+      end
   end
 end
+
+
