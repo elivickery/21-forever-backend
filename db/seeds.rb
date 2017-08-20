@@ -23,14 +23,14 @@ end
   username = Faker::Internet.user_name
   User.create({ username: username,
                 email: Faker::Internet.free_email(username),
-                password_digest: "password"})
+                password: "password"})
 end
 
 #goals seed data
 users = User.all
 categories = Category.all
 
-20.times do 
+20.times do
   Goal.create({ title: Faker::Hipster.sentence,
                 completed: [true, false].sample,
                 archived: [true, false].sample,
