@@ -7,9 +7,15 @@ module Api
     def create
       user = User.find_by(email: params[:email].downcase)
         if user && user.authenticate(params[:password])
-          render :text => user.access_token, status: 200
+          render json: {
+            found: true,
+            id: user.access_token
+          }.to_json
         else
-          render text: "Email and password combination are invalid", status: 422
+          render json: {
+            found: false,
+            errors: ['Incorrect e-mail or password']
+          }.to_json
         end
     end
     #Verifies the access_token.
