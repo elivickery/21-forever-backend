@@ -5,8 +5,8 @@ module Api
     end
     #If user login data  valid is it will return the access_token.
     def create
-      user = User.find_by(email: params[:session][:email].downcase)
-        if user && user.authenticate(params[:session][:password])
+      user = User.find_by(email: params[:email].downcase)
+        if user && user.authenticate(params[:password])
           render :text => user.access_token, status: 200
         else
           render text: "Email and password combination are invalid", status: 422
@@ -14,7 +14,7 @@ module Api
     end
     #Verifies the access_token.
     def verify_access_token
-      user = User.find_by(access_token: params[:session][:access_token])
+      user = User.find_by(access_token: params[:access_token])
         if user
           render text: "verified", status: 200
         else
