@@ -9,7 +9,7 @@ module Api
         if user && user.authenticate(params[:password])
           render json: {
             found: true,
-            id: user.access_token
+            id: user.id
           }.to_json
         else
           render json: {
