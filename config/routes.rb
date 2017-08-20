@@ -9,12 +9,13 @@ Rails.application.routes.draw do
       resources :goals, only:[:show, :create, :update, :index]
     end
 
-    get '/categories', to: 'categories#index'
-    get '/goals/:goal_id/days', to: 'days#index'
+    get '/categories',          to: 'categories#index'
+    get '/days/count', to: 'days#count'
+    put '/days/edit', to: 'days#update'
+    post   'login',   to: 'sessions#create'
+    delete 'logout',  to: 'sessions#destroy'
+    get    'verify',  to: 'sessions#verify_access_token'
 
-    post   'login'   => 'sessions#create'
-    delete 'logout'  => 'sessions#destroy'
-    get    'verify'  => 'sessions#verify_access_token'
     resources :password_resets, only: [:new, :create, :edit, :update]
   end
 
