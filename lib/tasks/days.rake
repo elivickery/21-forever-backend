@@ -7,7 +7,11 @@ namespace :next do
     Goal.find_by(completed: false).each do |goal|
 
       #Set all days where date = yesterday and status = nil to status = false
-      Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => nil).update(:status => "failed")
+      @goal = Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => nil).goal
+      @goal.days.destroy_all
+
+      @failed_goal = Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => "failed").goal
+      @failed_goal.days.destroy_all
 
       # Create a new day for this goal
       new_day = Day.new(goal_id: goal.id)
