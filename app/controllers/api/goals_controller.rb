@@ -5,7 +5,9 @@ module Api
     def achieved
       @achieved_goals = @user.goals.where(completed: true, archived: true)
       if @achieved_goals
-        render json: @achieved_goals.to_json
+        render json: {
+          goals: @achieved_goals
+          }.to_json
       else
         @error = "Error: no achieved goals"
         render @error.to_json
