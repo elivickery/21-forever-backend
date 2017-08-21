@@ -24,12 +24,10 @@ module Api
 
         if @user.save
           render json: {
-            created: true,
-            accessToken: user.access_token
+            accessToken: @user.access_token
           }.to_json
         else
           render json: {
-            created: false,
             errors: ['Could not create the user']
           }.to_json
         end
