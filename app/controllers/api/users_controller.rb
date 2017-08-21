@@ -1,22 +1,10 @@
 module Api
   class UsersController < ApplicationController
 
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-    def show
-    end
-
+    before_action :set_user, only: [:update, :destroy]
 
     def new
       @user = User.new
-    end
-
-    def edit
-      if @user
-        render json: @user, only: [:email, :name],  status: 200
-      else
-        render text: "Unidentified user", status: 422
-      end
     end
 
     def create
@@ -34,10 +22,14 @@ module Api
     end
 
     def update
-      if @user.update_attributes(user_params)
-        render text: "Account has been updated successfully", status: 200
+      if @user.update(email: params[:email], password: params[:password])
+        render json: {
+          accessToken: @user.access_token
+        }.to_json
       else
-        render json: @user.errors, status: 422
+        render json: {
+          errors: ['Could not update the user']
+        }.to_json
       end
     end
 
@@ -53,10 +45,6 @@ module Api
 
       def set_user
         @user = User.find_by(access_token: params[:access_token])
-      end
-
-      def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation)
       end
 
   end
