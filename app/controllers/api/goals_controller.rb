@@ -1,33 +1,45 @@
 module Api
   class GoalsController < ApplicationController
-    def index
-      @category = Category.find(params[:category_id])
-      @goals = @category.goals
-      render json: @goals.to_json
+    before_action :set_user
+
+    def achieved
+      @achieved_goals = @user.goals.find_by(completed: true, archived: true)
+      if @achieved_goals
+        render json: @achieved_goals.to_json
+      else
+        @error = "Error: no achieved goals"
+        render @error.to_json
+      end
     end
 
-    def show
-      @goal = Goal.find(params[:id])
-      render json: @goal.to_json
+    def current
+      @current_goal = @user.goals.find_by(completed: false, archived: false)
+      if @current_goal
+        render @current_goal.to_json
+      else
+        @error = "Error: no current goal"
+        render @error.to_json
+      end
     end
 
     def create
-      # Come back when devise is figured out. Include errors.
-      @user = User.find(params[:user_id])
       @new_goal = @user.goals.new(goal_params)
       @category = Category.find(params[:category_id])
       @category.goals << @new_goal
     end
 
     def update
-      # Include errors.
-      @goal = Goal.find(params[:id])
-      @goal.update(goal_params)
+      @current_goal = @user.goals.find_by(completed: false, archived: false)
+      @current_goal.update(goal_params)
     end
 
     private
+    def set_user
+      @user = User.find_by(access_token: params[:access_token])
+    end
+
     def goal_params
-      params.require(:goal).permit(:title)
+      params.require(:goal).permit(:title, :category_id, :user_id)
     end
   end
 end
