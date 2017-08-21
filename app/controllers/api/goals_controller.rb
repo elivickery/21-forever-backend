@@ -3,7 +3,7 @@ module Api
     before_action :set_user
 
     def achieved
-      @achieved_goals = @user.goals.find_by(completed: true, archived: true)
+      @achieved_goals = @user.goals.where(completed: true, archived: true)
       if @achieved_goals
         render json: @achieved_goals.to_json
       else
