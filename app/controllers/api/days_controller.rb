@@ -3,15 +3,15 @@ module Api
     before_action :set_user
 
     def count
-      @current_day = @user.days.find_by(status: nil)
-      @current_goal = @current_day.goal
+      @current_goal = @user.goals.find_by(completed: false, archived: false)
       @days = @current_goal.days
       count = @days.length
       render json: count.to_json
     end
 
     def update
-      @current_day = @user.days.find_by(status: nil)
+      @current_goal = @user.goals.find_by(completed: false, archived: false)
+      @current_day = @current_goal.days.find_by(status: nil)
       @current_day.update(day_params)
     end
 
