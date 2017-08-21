@@ -20,11 +20,18 @@ module Api
     end
 
     def create
-      @user = User.new(user_params)
+      @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+
         if @user.save
-          render text: @user.access_token, status: 201
+          render json: {
+            created: true,
+            accessToken: user.access_token
+          }.to_json
         else
-          render json: @user.errors, status: 422
+          render json: {
+            created: false,
+            errors: ['Could not create the user']
+          }.to_json
         end
     end
 
