@@ -14,5 +14,5 @@ module GiphyAdapter
 
     response = JSON.parse(http.request(request).body)
     return response
-    # response["data"].map { |result| result["images"]["fixed_height"]["url"] }
   end
+end
