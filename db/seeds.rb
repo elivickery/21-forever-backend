@@ -30,16 +30,14 @@ end
 users = User.all
 categories = Category.all
 
-20.times do
-  Goal.create({ title: Faker::Hipster.sentence,
+50.times do
+  goal = Goal.create({ title: Faker::Hipster.sentence,
                 completed: [true, false].sample,
                 archived: [true, false].sample,
                 category: categories.sample,
                 user: users.sample})
-end
 
-goals = Goal.all
-
-500.times do
-  Day.create({status: "achieved", goal: goals.sample})
+  (0..21).to_a.sample.times do
+    goal.days.create({status: "achieved"})
+  end
 end
