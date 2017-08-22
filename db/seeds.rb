@@ -37,3 +37,9 @@ categories = Category.all
                 category: categories.sample,
                 user: users.sample})
 end
+
+goals = Goal.all
+
+500.times do
+  Day.create({status: "achieved", goal: goals.sample})
+end
