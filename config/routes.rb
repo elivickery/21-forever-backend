@@ -5,10 +5,8 @@ Rails.application.routes.draw do
     resources :users,       only: [:show, :create, :update]
     resources :media_items, only: [:show]
 
-    resources :categories,  only: [:show] do
-      resources :goals,     only:[:create, :update]
-    end
-
+    resources :goals,     only:[:create, :update]
+    
     get '/categories', to: 'categories#index'
     get '/days/count', to: 'days#count'
     put '/days/edit',   to: 'days#update'

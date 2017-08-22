@@ -25,9 +25,14 @@ module Api
     end
 
     def create
-      @new_goal = @user.goals.new(goal_params)
-      @category = Category.find(params[:category_id])
-      @category.goals << @new_goal
+      @category_chosen = Category.find_by(title: params[:category])
+      Goal.create(
+        user_id: @user.id, 
+        category_id: @category_chosen.id, 
+        title: params[:title],
+        archived: false,
+        completed: false
+        )
     end
 
     def update
@@ -41,7 +46,7 @@ module Api
     end
 
     def goal_params
-      params.require(:goal).permit(:title, :category_id, :user_id)
+      params.require(:goal).permit(:title, :category_id, :user_id, :archived, :completed)
     end
   end
 end
