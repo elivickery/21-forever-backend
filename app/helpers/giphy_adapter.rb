@@ -1,10 +1,10 @@
 module GiphyAdapter
 
-  def self.search
+  def self.search(search_string)
     require 'uri'
     require 'net/http'
 
-    url = URI("http://api.giphy.com/v1/gifs/search?&rating=pg&q=financial+motivation&api_key=66488fa7813a472d8f999db142dd4ece&limit=15")
+    url = URI("http://api.giphy.com/v1/gifs/search?&rating=pg&q=#{search_string}+motivation&api_key=66488fa7813a472d8f999db142dd4ece&limit=15")
 
     http = Net::HTTP.new(url.host, url.port)
 
