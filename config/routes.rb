@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     put '/days/edit',   to: 'days#update'
     get '/goals/achieved', to: 'goals#achieved'
     get '/goals/current', to: 'goals#current'
-    get 'media/health', to: 'media#health'
+    get '/media/health', to: 'media#health'
     post   '/login',   to: 'sessions#create'
     delete '/logout',  to: 'sessions#destroy'
     get    '/verify',  to: 'sessions#verify_access_token'
