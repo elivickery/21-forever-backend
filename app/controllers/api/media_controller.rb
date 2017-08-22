@@ -1,5 +1,6 @@
 module Api
   class MediaController < ApplicationController
+    include GiphyAdapter
 
     def health
       response = GiphyAdapter.search(health)
