@@ -9,9 +9,8 @@ class Goal < ApplicationRecord
 private
     def only_one_active_goal
         goals = User.find_by(id: self.user_id).goals
-        if goals.where(archived: false, completed: false).length <= 1
-            return true
+        if goals.where(archived: false, completed: false).length > 1
+            errors.add(:user, "can only have one active goal")
         end
-        return false
     end
 end
