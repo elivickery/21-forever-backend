@@ -9,7 +9,7 @@ class Goal < ApplicationRecord
 private
     def only_one_active_goal
         goals = User.find_by(id: self.user_id).goals 
-        if goals.where(archived== false && completed== false) <= 1
+        if goals.where(archived: false, completed: false).length <= 1
             return true
         end
         return false
