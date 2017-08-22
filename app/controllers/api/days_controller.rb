@@ -11,7 +11,7 @@ module Api
 
     def update
       p params
-      @current_goal = @user.goals.where(completed: false, archived: false)
+      @current_goal = @user.goals.where(completed: false, archived: false).last
       @current_day = @current_goal.days.where(status: nil)
       @current_day.update(day_params)
       p params
