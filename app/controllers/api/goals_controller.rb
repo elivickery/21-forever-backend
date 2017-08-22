@@ -10,34 +10,36 @@ module Api
           }.to_json
       else
         @error = "Error: no achieved goals"
-        render @error.to_json
+        render json: @error.to_json
       end
     end
 
     def current
       @current_goal = @user.goals.where(completed: false, archived: false)
       if @current_goal
-        render @current_goal.to_json
+        render json: @current_goal.to_json
       else
         @error = "Error: no current goal"
-        render @error.to_json
+        render json: @error.to_json
       end
     end
 
     def create
       @category_chosen = Category.find_by(title: params[:category])
       Goal.create(
-        user_id: @user.id, 
-        category_id: @category_chosen.id, 
+        user_id: @user.id,
+        category_id: @category_chosen.id,
         title: params[:title],
         archived: false,
         completed: false
         )
+      render json: {goal_created: true}.to_json
     end
 
     def update
       @current_goal = @user.goals.find_by(completed: false, archived: false)
       @current_goal.update(goal_params)
+      render json: {goal_updated: true}.to_json
     end
 
     private
