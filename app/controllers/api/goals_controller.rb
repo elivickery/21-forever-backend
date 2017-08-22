@@ -15,7 +15,7 @@ module Api
     end
 
     def current
-      @current_goal = @user.goals.find_by(completed: false, archived: false)
+      @current_goal = @user.goals.where(completed: false, archived: false)
       if @current_goal
         render @current_goal.to_json
       else
