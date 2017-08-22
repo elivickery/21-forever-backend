@@ -3,6 +3,7 @@ require 'faker'
 User.destroy_all
 Category.destroy_all
 Goal.destroy_all
+Day.destroy_all
 
 # categories seed data
 environment_seed_file = File.join(Rails.root, 'db', 'seeds', "#{Rails.env}.rb")
@@ -37,7 +38,7 @@ categories = Category.all
                 category: categories.sample,
                 user: users.sample})
 
-  (0..21).to_a.sample.times do
-    goal.days.create({status: "achieved"})
-  end
+  # (0..21).to_a.sample.times do
+  #   goal.days.create({status: "achieved"})
+  # end
 end
