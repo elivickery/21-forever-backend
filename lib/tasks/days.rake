@@ -13,9 +13,9 @@ namespace :next do
 
       new_day = goal.days.new
       if new_day.save
-        puts "New day generated successfully for: " + goal.user
+        puts "New day generated successfully for: " + goal.user.email
       else
-        puts "! Could not generate new day for: " + goal.user
+        puts "! Could not generate new day for: " + goal.user.email
         puts new_day.errors.full_messages
       end
 
