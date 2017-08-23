@@ -29,7 +29,6 @@ module Api
     end
 
     def create
-      puts params
       @category_chosen = Category.find_by(title: params[:category])
       goal = Goal.create(
         user_id: @user.id,
