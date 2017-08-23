@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     get '/categories', to: 'categories#index'
     get '/days/count', to: 'days#count'
+    get '/days/current', to: 'days#current'
     put '/days/edit',   to: 'days#update'
     get '/goals/achieved', to: 'goals#achieved'
     get '/goals/current', to: 'goals#current'

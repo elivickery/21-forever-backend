@@ -2,6 +2,13 @@ module Api
   class DaysController < ApplicationController
     before_action :set_user
 
+    def current
+
+      @current_goal = @user.goals.where(completed: false, archived: false).last
+      @current_day = @current_goal.days.order('id').last
+      render json: {complete: @current_day.status}.to_json
+    end
+
     def count
       @current_goal = @user.goals.find_by(completed: false, archived: false)
       @days = @current_goal.days
