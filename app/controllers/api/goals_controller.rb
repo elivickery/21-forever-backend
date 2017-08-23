@@ -11,7 +11,7 @@ module Api
           }.to_json
       else
         @error = "Error: no achieved goals"
-        render @error.to_json
+        render json: @error.to_json
       end
     end
 
@@ -25,24 +25,30 @@ module Api
         render json: {current_goal: @current_goal, gifs_sample: gifs_sample}.to_json
       else
         @error = "Error: no current goal"
-        render @error.to_json
+        render json: @error.to_json
       end
     end
 
     def create
       @category_chosen = Category.find_by(title: params[:category])
-      Goal.create(
+      goal = Goal.create(
         user_id: @user.id,
         category_id: @category_chosen.id,
         title: params[:title],
         archived: false,
         completed: false
         )
+      Day.create(
+        goal_id = goal.id,
+        status: nil
+      )
+      render json: {goal_created: true}.to_json
     end
 
     def update
       @current_goal = @user.goals.find_by(completed: false, archived: false)
       @current_goal.update(goal_params)
+      render json: {goal_updated: true}.to_json
     end
 
     private
