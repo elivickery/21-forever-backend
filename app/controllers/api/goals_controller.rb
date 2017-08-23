@@ -1,6 +1,7 @@
 module Api
   class GoalsController < ApplicationController
     before_action :set_user
+    include GiphyAdapter
 
     def achieved
       @achieved_goals = @user.goals.where(completed: true, archived: true)
@@ -15,9 +16,12 @@ module Api
     end
 
     def current
-      @current_goal = @user.goals.where(completed: false, archived: false)
+      @current_goal = @user.goals.find_by(completed: false, archived: false)
+      @cat_title = @current_goal.category.title
+      response = GiphyAdapter.search
+      gifs_sample = response["data"].map {|gif| gif["images"]["fixed_height"]["url"]}.sample
       if @current_goal
-        render json: @current_goal.to_json
+        render json: {current_goal: @current_goal, gifs_sample: gifs_sample}.to_json
       else
         @error = "Error: no current goal"
         render json: @error.to_json
