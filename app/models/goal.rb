@@ -3,8 +3,8 @@ class Goal < ApplicationRecord
     belongs_to  :user
     has_many    :days
 
-    validates :title, :category_id, :user_id, presence: true
-    validate :only_one_active_goal
+    validates   :title, :category_id, :user_id, presence: true
+    validate    :only_one_active_goal, on: :create
 
 private
     def only_one_active_goal
