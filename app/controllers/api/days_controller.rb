@@ -6,9 +6,7 @@ module Api
 
       @current_goal = @user.goals.where(completed: false, archived: false).last
       @current_day = @current_goal.days.order('id').last
-      p '*----------------*'
-      p @current_day
-      render json: {complete: status}.to_json
+      render json: {complete: @current_day.status}.to_json
     end
 
     def count
