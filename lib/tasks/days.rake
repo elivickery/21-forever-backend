@@ -7,7 +7,7 @@ namespace :next do
     Goal.where(completed: false).each do |goal|
 
       #Set all days where date = yesterday and status = nil to status = false
-      yesterday_nil = goal.days.where("DATE(created_at) = ?", Date.today-1).where(:status => nil)
+      yesterday_nil = goal.days.where("DATE(created_at) = ?", Time.zone.now.to_date-1).where(:status => nil)
 
       if yesterday_nil
         yesterday_nil.update(status: 'failed')
