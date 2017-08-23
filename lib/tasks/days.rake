@@ -4,23 +4,21 @@ namespace :next do
   task :day => :environment do
 
     # Loop thru all the goals
-    Goal.find_by(completed: false).each do |goal|
+    Goal.where(completed: false).each do |goal|
 
       #Set all days where date = yesterday and status = nil to status = false
-      @goal = Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => nil).goal
-      @goal.days.destroy_all
+      if goal.days.where(status: 'failed') || goal.days.where(status: nil)
+        goal.days.destroy_all
+      end
 
-      @failed_goal = Day.where(:goal_id => goal.id).where("DATE(created_at) = ?", Date.today-1).where(:status => "failed").goal
-      @failed_goal.days.destroy_all
-
-      # Create a new day for this goal
-      new_day = Day.new(goal_id: goal.id)
+      new_day = goal.days.new
       if new_day.save
-        puts "New day generated successfully for: " + goal.title
+        puts "New day generated successfully for: " + goal.user.email
       else
-        puts "! Could not generate new day for: " + goal.title
+        puts "! Could not generate new day for: " + goal.user.email
         puts new_day.errors.full_messages
       end
+
     end
 
   end
