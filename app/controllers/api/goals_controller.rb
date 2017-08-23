@@ -25,6 +25,7 @@ module Api
     end
 
     def create
+      puts params
       @category_chosen = Category.find_by(title: params[:category])
       goal = Goal.create(
         user_id: @user.id,
@@ -33,11 +34,8 @@ module Api
         archived: false,
         completed: false
         )
-      Day.create(
-        goal_id = goal.id,
-        status: nil
-      )
-      render json: {goal_created: true}.to_json
+      goal.days.create
+      render true
     end
 
     def update
