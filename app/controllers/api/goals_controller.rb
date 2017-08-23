@@ -26,13 +26,17 @@ module Api
 
     def create
       @category_chosen = Category.find_by(title: params[:category])
-      Goal.create(
+      goal = Goal.create(
         user_id: @user.id,
         category_id: @category_chosen.id,
         title: params[:title],
         archived: false,
         completed: false
         )
+      Day.create(
+        goal_id = goal.id,
+        status: nil
+      )
       render json: {goal_created: true}.to_json
     end
 
