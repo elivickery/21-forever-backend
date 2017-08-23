@@ -12,8 +12,8 @@ module Api
     def update
       # was returning more than one goal in line 14. Add .last.
       @current_goal = @user.goals.where(completed: false, archived: false).last
-      @current_day = @current_goal.days.where(status: nil)
-      @current_day.update(day_params)
+      @current_day = @current_goal.days.order('id').last
+      @current_day.update(status: params[:status])
       status = (@current_goal.days.length === 21)
       @current_goal.update(completed: true, archived: true) if status
       render json: {complete: status}.to_json

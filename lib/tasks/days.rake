@@ -7,7 +7,11 @@ namespace :next do
     Goal.where(completed: false).each do |goal|
 
       #Set all days where date = yesterday and status = nil to status = false
-      if goal.days.where(status: 'failed') || goal.days.where(status: nil)
+      if goal.days.find_by(status: 'failed')
+        goal.days.destroy_all
+      end
+
+      if goal.days.find_by(status: nil)
         goal.days.destroy_all
       end
 
