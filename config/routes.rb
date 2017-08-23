@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
   namespace :api do
+    put '/users/update', to: 'users#update'
 
-    resources :users,       only: [:show, :create, :update]
+    resources :users,       only: [:show, :create]
     resources :media_items, only: [:show]
 
     resources :goals,     only:[:create, :update]
+
 
     get '/categories', to: 'categories#index'
     get '/days/count', to: 'days#count'
