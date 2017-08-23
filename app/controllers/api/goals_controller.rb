@@ -35,7 +35,7 @@ module Api
         completed: false
         )
       goal.days.create
-      render true
+      render json: {goal_created: true}.to_json
     end
 
     def update
