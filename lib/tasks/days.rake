@@ -1,7 +1,6 @@
-namespace :next do
-  desc "Rake task to generate new days"
+desc "Rake task to generate new days"
 
-  task :day => :environment do
+  task :nextday => :environment do
 
     # Loop thru all the goals
     Goal.where(completed: false).each do |goal|
@@ -25,6 +24,5 @@ namespace :next do
 
     end
 
-  end
-
 end
+
