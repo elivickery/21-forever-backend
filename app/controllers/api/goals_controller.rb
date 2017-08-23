@@ -37,10 +37,7 @@ module Api
         archived: false,
         completed: false
         )
-      Day.create(
-        goal_id = goal.id,
-        status: nil
-      )
+      goal.days.create
       render json: {goal_created: true}.to_json
     end
 
