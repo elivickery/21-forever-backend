@@ -3,8 +3,11 @@ module Api
     before_action :set_user
 
     def current
+
       @current_goal = @user.goals.where(completed: false, archived: false).last
       @current_day = @current_goal.days.order('id').last
+      p '*----------------*'
+      p @current_day
       render json: {complete: status}.to_json
     end
 
