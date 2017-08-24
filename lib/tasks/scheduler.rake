@@ -2,6 +2,8 @@ desc "Rake task to generate new days"
 
   task :nextday => :environment do
 
+    puts "Starting nextday run..."
+
     # Loop thru all the goals
     Goal.where(completed: false).each do |goal|
 
@@ -24,5 +26,6 @@ desc "Rake task to generate new days"
 
     end
 
+    puts "Finished nextday run."
 end
 
