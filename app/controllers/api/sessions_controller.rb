@@ -17,11 +17,17 @@ module Api
     end
 
     def verify_access_token
-      @user = User.find_by(access_token: params[:access_token])
+      @user = User.find_by(email: params[:email])
       if @user
-        render text: "verified", status: 200
+        render json: {
+          found: true,
+          accessToken: user.access_token
+        }.to_json
       else
-        render text: "Token failed verification", status: 422
+        render json: {
+          found: false,
+          errors: ['Incorrect e-mail or password']
+        }.to_json
       end
     end
 
