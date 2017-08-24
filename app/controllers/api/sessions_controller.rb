@@ -20,8 +20,7 @@ module Api
       @user = User.find_by(email: params[:email])
       if @user
         render json: {
-          found: true,
-          accessToken: user.access_token
+          found: true
         }.to_json
       else
         render json: {
