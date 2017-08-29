@@ -1,24 +1,10 @@
-# README
+# 21-forever-backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+21Forever is a simple, sleek habit tracking iOS app that encourages users to set small goals and build 21-day habit streaks.
 
-Things you may want to cover:
+![ScreenShot 1](https://github.com/elivickery/21-forever-frontend/blob/development/screenshot-1.png?raw=true)
 
-* Ruby version
+![ScreenShot 2](https://github.com/elivickery/21-forever-frontend/blob/development/screenshot-2.png?raw=true)
 
-* System dependencies
+21Forever is a decoupled app built on React Native (frontend) and Ruby on Rails (backend). Check out the frontend here: [21 Forever Frontend](https://github.com/elivickery/21-forever-frontend)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
